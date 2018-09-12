@@ -1,9 +1,1 @@
-<form [formGroup]="chatMessageFormGroup" (ngSubmit)="onSubmitChatMessage()">
-  <div class="form-group">
-    <label for="message">mssage</label>
-    <input type="text" formControlName="chatMessageControl" class="form-control" id="message" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-{{chatMessageFormGroup.controls.chatMessageControl.value}}
+<router-outlet></router-outlet>
