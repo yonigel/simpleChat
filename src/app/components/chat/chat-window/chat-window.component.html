@@ -1,3 +1,13 @@
 <p *ngFor="let message of messages">
-  {{message.user}}: {{message.content}}
+  <span *ngIf="message.getMessageType() == 'chatMessage'">
+    {{message.user}}: {{message.content}}
+  </span>
+  <span *ngIf="message.getMessageType() == 'chatEvent'">
+    {{message.user}}: {{message.eventType}}
+  </span>
 </p>
+
+<!-- <p *ngFor="let message of messages">
+  {{message.getMessageType()}}
+  {{message.user}}: {{message.content}}
+</p> -->

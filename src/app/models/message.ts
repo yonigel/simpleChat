@@ -1,3 +1,6 @@
-// tslint:disable-next-line:no-empty-interface
-export interface Message {}
+import { MessageType } from '../enums/messageType.enum';
+
+export interface Message {
+    getMessageType(): MessageType;
+}
 
