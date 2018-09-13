@@ -12,8 +12,8 @@ import {LoggedInUserGuard} from './guards/logedInUser.guard';
 
 const appRouter: Routes = [
   {path: 'connect', component: EnterUsernameComponent},
-  {path: '', redirectTo: '/chatRoom', pathMatch: 'full'},
-  {path: 'chatRoom', component: MainChatComponent, canActivate: [LoggedInUserGuard]}
+  {path: '', redirectTo: '/connect', pathMatch: 'full'},
+  {path: 'chatRoom', component: MainChatComponent}
 ];
 
 @NgModule({

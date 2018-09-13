@@ -1,3 +1,11 @@
-<p>
-  main-chat works!
-</p>
+<div class="row">
+  <div class="col-md-2">
+    <app-users-list [users]="users"></app-users-list>
+  </div>
+  <div class="col-md-10">
+    <app-chat-window [chatMessages]="chatMessages"></app-chat-window>
+  </div>
+</div>
+<div class="row">
+  <app-send-chat-message class="col-md-12" [connectedUsername]="connectedUsername"></app-send-chat-message>
+</div>

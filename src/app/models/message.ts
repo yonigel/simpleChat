@@ -1,8 +1,8 @@
 export class Message {
-    from: string;
+    user: string;
     content: string;
-    constructor(from: string, content: string) {
-        this.from = from;
+    constructor(user: string, content: string) {
+        this.user = user;
         this.content = content;
     }
 }
