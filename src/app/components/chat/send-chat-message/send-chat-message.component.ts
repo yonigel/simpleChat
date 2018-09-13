@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SocketService } from '../../../services/socket.service';
-import { Message } from '../../../models/message';
+import { ChatMessage } from '../../../models/chatMessage';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -25,11 +25,11 @@ export class SendChatMessageComponent implements OnInit {
 
   private onSendMessageSubmit(): void {
     const content = this.sendMessageFormGroup.controls.chatMessage.value;
-    const message = new Message(this.connectedUsername, content);
+    const message = new ChatMessage(this.connectedUsername, content);
     this.sendMessage(message);
   }
 
-  private sendMessage(message: Message): void {
+  private sendMessage(message: ChatMessage): void {
     this.socketService.sendMessage(message);
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ChatMessage } from '../../../models/chatMessage';
 import { Message } from '../../../models/message';
 
 @Component({
@@ -9,7 +10,7 @@ import { Message } from '../../../models/message';
 export class ChatWindowComponent implements OnInit {
 
   @Input()
-  chatMessages: Message[];
+  messages: Message[];
 
   constructor() { }
 

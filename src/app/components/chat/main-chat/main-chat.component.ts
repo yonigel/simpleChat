@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Message } from '../../../models/message';
+import { ChatMessage } from '../../../models/chatMessage';
 import { SocketService } from '../../../services/socket.service';
 import { UserService } from '../../../services/user.service';
+import { UserEventsService } from '../../../services/events/user-events.service';
+import { Message } from '../../../models/message';
 
 @Component({
   selector: 'app-main-chat',
@@ -10,14 +12,14 @@ import { UserService } from '../../../services/user.service';
 })
 export class MainChatComponent implements OnInit {
 
-  private chatMessages: Message[];
+  private messages: Message[];
   private connectedUsername: string;
   private users: string[];
 
-  constructor(private socketService: SocketService, private userService: UserService) { }
+  constructor(private userEventService: UserEventsService, private socketService: SocketService, private userService: UserService) { }
 
   ngOnInit() {
-    this.chatMessages = [];
+    this.messages = [];
     this.users = [];
     this.connectedUsername = this.userService.getConnectedUsername();
     this.initChatConnection();
@@ -25,19 +27,21 @@ export class MainChatComponent implements OnInit {
 
   private initChatConnection(): void {
     this.socketService.initSocket();
-    this.socketService.onMessage().subscribe((message: Message) => {
+    this.socketService.onMessage().subscribe((message: ChatMessage) => {
       console.log(`got message`);
-      this.chatMessages.push(new Message(message.user, message.content));
+      this.messages.push(new ChatMessage(message.user, message.content));
     });
 
     this.socketService.onUserConnect().subscribe(user => {
       this.users.push(user);
+      this.userEventService.setConnectedUserEvent(user);
     });
 
     this.socketService.onUserDisconnect().subscribe(disconnectedUser => {
       console.log(`user ${disconnectedUser} disconnected`);
       // tslint:disable-next-line:triple-equals
       this.users = this.users.filter(user => user != disconnectedUser);
+      this.userEventService.setDisconnectedUserEvent(disconnectedUser);
     });
 
     this.socketService.onGetAllUsers().subscribe(users => {

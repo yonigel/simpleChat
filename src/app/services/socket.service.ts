@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as socketIo from 'socket.io-client';
 import { Observable } from 'rxjs';
-import { Message } from '../models/message';
+import { ChatMessage } from '../models/chatMessage';
 import { UserService } from './user.service';
 import { Event } from '../enums/events.enum';
 
@@ -23,12 +23,12 @@ export class SocketService {
     this.sendUsername();
   }
 
-  public sendMessage(message: Message): void {
+  public sendMessage(message: ChatMessage): void {
     this.socket.emit('message', message);
   }
 
-  public onMessage(): Observable<Message> {
-    return new Observable<Message>(observer => {
+  public onMessage(): Observable<ChatMessage> {
+    return new Observable<ChatMessage>(observer => {
       this.socket.on('message', data => {
         observer.next(data);
       });
