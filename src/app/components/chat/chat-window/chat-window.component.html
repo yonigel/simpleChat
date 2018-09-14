@@ -1,9 +1,14 @@
 <p *ngFor="let message of messages">
   <span *ngIf="message.getMessageType() == 'chatMessage'">
-    {{message.user}}: {{message.content}}
+    <b>{{message.user}}</b>
+    <span *ngIf="message.user == connectedUsername" class="selfUser"> (That's you)</span> 
+    <b>says:</b> {{message.content}}
   </span>
-  <span *ngIf="message.getMessageType() == 'chatEvent'">
-    {{message.user}}: {{message.eventType}}
+  <span *ngIf="message.eventType == 'userConnected'" class="chatEvent userConnected">
+    {{message.user}} just connected, say hello!
+  </span>
+  <span *ngIf="message.eventType == 'userLeft'" class="chatEvent userDisconnected">
+    {{message.user}} disconnected :`(
   </span>
 </p>
 

@@ -4,6 +4,7 @@ import { SocketService } from '../../../services/socket.service';
 import { UserService } from '../../../services/user.service';
 import { UserEventsService } from '../../../services/events/user-events.service';
 import { Message } from '../../../models/message';
+import { MessageEventsService } from '../../../services/events/message-events.service';
 
 @Component({
   selector: 'app-main-chat',
@@ -16,7 +17,8 @@ export class MainChatComponent implements OnInit {
   private connectedUsername: string;
   private users: string[];
 
-  constructor(private userEventService: UserEventsService, private socketService: SocketService, private userService: UserService) { }
+  constructor(private messageEventSerivce: MessageEventsService, private userEventService: UserEventsService,
+     private socketService: SocketService, private userService: UserService) { }
 
   ngOnInit() {
     this.messages = [];
@@ -30,6 +32,7 @@ export class MainChatComponent implements OnInit {
     this.socketService.onMessage().subscribe((message: ChatMessage) => {
       console.log(`got message`);
       this.messages.push(new ChatMessage(message.user, message.content));
+      this.messageEventSerivce.setChatMessageSentEvent(message);
     });
 
     this.socketService.onUserConnect().subscribe(user => {

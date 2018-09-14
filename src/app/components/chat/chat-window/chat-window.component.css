@@ -3,5 +3,19 @@
 }
 
 .chatEvent {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.selfUser {
+    font-style: italic;
+}
+
+.userConnected {
     color: green;
 }
+
+.userDisconnected {
+    color: red;
+}
+
